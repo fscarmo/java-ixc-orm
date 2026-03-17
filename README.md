@@ -1,11 +1,11 @@
 <div align="center">
-    
+
 # IXC-ORM
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Maven Central](https://img.shields.io/maven-central/v/br.dev.fscarmo/ixcorm.svg?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge)
-[![License](https://img.shields.io/badge/License-Public%20Domain-green.svg?style=for-the-badge)](https://github.com/SousaFelipe/java-ixc-orm/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-Public%20Domain-green.svg?style=for-the-badge)](https://github.com/fscarmo/java-ixc-orm/blob/master/LICENSE)
 
 </div>
 
@@ -14,7 +14,7 @@
 
 Esse ORM visa facilitar a manipulação de registros do sistema <a href="https://ixcsoft.com/ixc-provedor/">IXC Provedor</a>, através de sua <a href="https://wikiapiprovedor.ixcsoft.com.br/">API Oficial</a>.
 Não precisa mais se preocupar com a construção das `queries` de busca, com a manipulação dos cabeçalhos, ou validação das requisições HTTP. Já está tudo aqui, a poucas linhas de código de "distância"! 😀
-    
+
 </div>
 
 
@@ -27,7 +27,7 @@ Não precisa mais se preocupar com a construção das `queries` de busca, com a 
 <dependency>
     <groupId>br.dev.fscarmo</groupId>
     <artifactId>ixcorm</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ````
 
@@ -54,15 +54,13 @@ ixc.access.token=conteúdo_do_token_gerado_no_ixc_provedor
 ixc.server.domain=www.domínio_do_seu_servidor_ixc_provedor.com.br
 ````
 
-#### Também funciona se você optar por carregar os valores a partir de um .env
+#### Também funciona se você optar por carregar os valores a partir de um `.env`
 
 ````properties
 # application.properties
 ixc.access.token=${IXC_ACCESS_TOKEN}
 ixc.server.domain=${IXC_SERVER_DOMAIN}
 ````
-
-### Docker
 
 ````yaml
 # docker-compose.yaml
@@ -75,21 +73,21 @@ environment:
 ## Como utilizar
 
 Da forma mais simples, será necessário manipular diretamente apenas quatro classes que estão no pacote `br.dev.fscarmo.ixcorm.*`\
-São elas as classes: <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcContext.java">IxcContext</a>, 
-<a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a>, 
-<a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcResponse.java">IxcResponse</a> 
-e <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcRecord.java">IxcRecord</a>. 
-Sendo que as classes <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a> e 
-<a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcResponse.java">IxcResponse</a> só poderão 
-ser manipuladas através de subclasses.
+São elas as classes: <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcContext.java">IxcContext</a>,
+<a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a>,
+<a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcResponse.java">IxcResponse</a>
+e <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcRecord.java">IxcRecord</a>.
+Sendo que as classes <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a> e
+<a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcResponse.java">IxcResponse</a> só poderão
+ser manipuladas por subclasses.
 
 
 ### 1 - Definição do método de carregamento das variáveis de ambiente
 
-A biblioteca já possui duas classes 
-(<a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/config/envs/DockerEnv.java">DockerEnv</a>
-e <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/config/envs/PropertiesEnv.java">PropertiesEnv</a>)
-que irão facilitar o trabalho, caso você escolha declarar as variáveis de ambiente no arquivo `application.properties`, ou no ambiente Docker, 
+A biblioteca já possui duas classes
+(<a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/config/envs/DockerEnv.java">DockerEnv</a>
+e <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/config/envs/PropertiesEnv.java">PropertiesEnv</a>)
+que irão facilitar o trabalho, caso você escolha declarar as variáveis de ambiente no arquivo `application.properties`, ou no ambiente Docker,
 através do arquivo `docker-compose.yaml`. O exemplo a seguir mostra como informar ao contexto da biblioteca que as variáveis deverão ser carregadas do `application.properties`:
 
 ````java
@@ -110,8 +108,8 @@ public class Main {
 
 ### 2 - Declaração das classes manipuladoras
 
-Para enviar requisições HTTP para a API do IXC Provedor, será necessário implemenrtar classes que representarão as 
-tabelas que você deseja manipular. Essas classes deverão herdar da "superclasse" <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a>, como no 
+Para enviar requisições HTTP para a API do IXC Provedor, será necessário implemenrtar classes que representarão as
+tabelas que você deseja manipular. Essas classes deverão herdar da "superclasse" <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcOrm.java">IxcOrm</a>, como no
 exemplo a seguir, que simula a intenção de manipular os registros dos clientes:
 
 ````java
@@ -132,8 +130,8 @@ public class Cliente extends IxcOrm {
 
 ### 3 - Declaração das classes "Record"
 
-As classes `Record` são como DTOs que irão mapear automaticamente as propriedades de cada registro retornado pela API do IXC Provedor. 
-Para isso basta criar uma classe `Record` sendo ela uma "subclasse" de <a href="https://github.com/SousaFelipe/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcRecord.java">IxcRecord<a/> 
+As classes `Record` são como DTOs que irão mapear automaticamente as propriedades de cada registro retornado pela API do IXC Provedor.
+Para isso basta criar uma classe `Record` sendo ela uma "subclasse" de <a href="https://github.com/fscarmo/java-ixc-orm/blob/master/src/main/java/br/dev/fscarmo/ixcorm/IxcRecord.java">IxcRecord<a/>
 e declarar as propriedades que você deseja manipular, como no exemplo a seguir:
 
 ````java
@@ -146,7 +144,7 @@ public class ClienteRecord extends IxcRecord {
     private String cnpjCpf;
     private String razao;
     private String endereco;
-    
+
     /* getter's e setter's */
 }
 ````
@@ -157,7 +155,7 @@ public class ClienteRecord extends IxcRecord {
 
 ### 4 - Enviando uma requisição de listagem de clientes
 
-Utilizando as classes criadas no [exemplo 2](#2---declaração-das-classes-manipuladoras) e no [exemplo 3](#3---declaração-das-classes-record), 
+Utilizando as classes criadas no [exemplo 2](#2---declaração-das-classes-manipuladoras) e no [exemplo 3](#3---declaração-das-classes-record),
 para simular uma requisição de listagem dos registros de clientes cadastrados a partir de Janeiro de 2025:
 
 ````java
@@ -172,19 +170,19 @@ IxcResponse response = Cliente.newCliente()
 List<ClienteRecord> clientes = response.getBody().getRegistros(ClienteRecord.class);
 
 clientes.forEach(c -> {
-    System.out.println();
+        System.out.println();
     System.out.println("CNPJ/CPF: " + c.getCnpjCpf());
-    System.out.println("Razão social: " + c.getRazao());
-    System.out.println("Endereço: " + c.getEndereco());
-});
+        System.out.println("Razão social: " + c.getRazao());
+        System.out.println("Endereço: " + c.getEndereco());
+        });
 ````
 
 
 # Contribuições
 
 Contribuições são sempre bem-vindas!\
-Se você conhece uma maneira melhor de fazer algo, por favor, me avise!
-Caso contrário, é sempre melhor fazer um PR na branch master.
+Se você conhece uma maneira melhor de fazer algo, por favor, me avise!\
+Ou sinta-se á vontade para enviar PRs.
 
 At.te,\
 <b>Felipe S. Carmo</b>.

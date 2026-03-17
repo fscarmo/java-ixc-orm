@@ -7,15 +7,15 @@
     <groupId>br.dev.fscarmo</groupId>
     <artifactId>ixcorm</artifactId>
     <name>java-ixc-orm</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <description>ORM não oficial para consumo de dados da API do sistema IXC Provedor</description>
-    <url>https://github.com/SousaFelipe/java-ixc-orm/</url>
+    <url>https://github.com/fscarmo/java-ixc-orm/</url>
     <packaging>jar</packaging>
 
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/SousaFelipe/java-ixc-orm/blob/master/LICENSE</url>
+            <url>https://github.com/fscarmo/java-ixc-orm/blob/master/LICENSE</url>
         </license>
     </licenses>
 
@@ -28,9 +28,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/SousaFelipe/java-ixc-orm.git</connection>
-        <developerConnection>scm:git:ssh://github.com/SousaFelipe/java-ixc-orm.git</developerConnection>
-        <url>https://github.com/SousaFelipe/java-ixc-orm</url>
+        <connection>scm:git:git://github.com/fscarmo/java-ixc-orm.git</connection>
+        <developerConnection>scm:git:ssh://github.com/fscarmo/java-ixc-orm.git</developerConnection>
+        <url>https://github.com/fscarmo/java-ixc-orm</url>
     </scm>
 
     <properties>
