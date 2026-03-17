@@ -27,13 +27,10 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 2.0.0
+ * @version 2.0.1
  * @since 2025-09-27
  */
 public abstract class RequestEmitter {
-
-    private static final HttpResponse.BodyHandler<String> BODY_HANDLER =
-            HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8);
 
     private final List<Header> headers = new ArrayList<>();
     private final String table;
@@ -186,7 +183,10 @@ public abstract class RequestEmitter {
             builder.method(method.value(), publisher);
             headers.forEach(h -> builder.setHeader(h.getName(), h.getValue()));
 
-            return client.send(builder.build(), BODY_HANDLER);
+            return client.send(
+                    builder.build(),
+                    HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)
+            );
         }
         catch (IllegalArgumentException | UncheckedIOException | InterruptedException | IOException e) {
             throw new NetworkConnectionException();
