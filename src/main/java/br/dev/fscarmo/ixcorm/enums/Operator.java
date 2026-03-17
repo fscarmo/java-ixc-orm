@@ -8,12 +8,13 @@ package br.dev.fscarmo.ixcorm.enums;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 1.0.1
+ * @version 1.1.0
  * @since 2025-09-28
  */
 public enum Operator {
 
     EQUALS("="),
+    NOT("!="),
     LIKE("L"),
     LESS_THAN("<"),
     LESS_THAN_EQUALS("<="),
