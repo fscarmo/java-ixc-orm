@@ -25,7 +25,7 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 2.0.1
+ * @version 2.2.0
  * @since 2025-09-27
  */
 public abstract class IxcOrm extends RequestEmitter {
@@ -114,10 +114,27 @@ public abstract class IxcOrm extends RequestEmitter {
      * </p>
      *
      * @param value O valor do campo da tabela que será usado como filtro na busca.
-     * @return A própria instânci de {@link IxcOrm}.
+     * @return A própria instância de {@link IxcOrm}.
      */
     public IxcOrm exactly(Object value) {
         parameterBuilder.operator(Operator.EQUALS);
+        parameterBuilder.value(value);
+        addParamToGridAndReset();
+        setQuery(getQueryAsJson());
+        return this;
+    }
+
+    /**
+     * <p>
+     * Adiciona o operador de comparação (!=) e o valor a ser filtrado, no objeto de parâmetro, iniciado por
+     * <b>where(String column)</b>.
+     * </p>
+     *
+     * @param value O valor do campo da tabela que será usado como filtro na busca.
+     * @return A própria instância de {@link IxcOrm}.
+     */
+    public IxcOrm not(Object value) {
+        parameterBuilder.operator(Operator.NOT);
         parameterBuilder.value(value);
         addParamToGridAndReset();
         setQuery(getQueryAsJson());
@@ -199,7 +216,7 @@ public abstract class IxcOrm extends RequestEmitter {
      *
      * @param order O tipo de ordenação (asc | desc).
      * @param column O Campo da tabela que será usado para ordenar os registros retornados.
-     * @return A própria instânci de {@link IxcOrm}.
+     * @return A própria instância de {@link IxcOrm}.
      */
     public IxcOrm orderBy(Sort order, String column) {
         ordering = new Ordering(column, order);
