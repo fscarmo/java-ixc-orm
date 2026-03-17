@@ -17,7 +17,7 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2025-09-28
  */
 public class IxcResponseBody {
@@ -70,6 +70,20 @@ public class IxcResponseBody {
 
     /**
      * <p>
+     * @deprecated Este recurso fois substuído por {@link #getRecords(Class)}. Será removido na versão 2.x.x desta
+     * biblioteca.
+     * </p>
+     *
+     * @param mapper A classe de um tipo genérico que herde de {@link IxcRecord}.
+     * @return Uma lista de objetos do tipo "<b>T</b>".
+     */
+    @Deprecated
+    public <T extends IxcRecord> List<T> getRegistros(Class<T> mapper) {
+        return this.getRecords(mapper);
+    }
+
+    /**
+     * <p>
      * Procura pela propriedade "registros" no {@link JsonObject} da resposta e retorna como uma lista de objetos
      * mapeados pelo tipo da classe fornecido em <b>Class< T > mapper</b>. Quando a propriedade não é encontrada, a
      * função retorna uma lista vazia.
@@ -84,7 +98,7 @@ public class IxcResponseBody {
      * @param mapper A classe de um tipo genérico que herde de {@link IxcRecord}.
      * @return Uma lista de objetos do tipo "<b>T</b>".
      */
-    public <T extends IxcRecord> List<T> getRegistros(Class<T> mapper) {
+    public <T extends IxcRecord> List<T> getRecords(Class<T> mapper) {
         JsonArray jsonElements = jsonObject.getAsJsonArray("registros");
         if (jsonElements != null) {
             IxcRecordFactory<T> factory = new IxcRecordFactory<>(mapper);
