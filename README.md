@@ -171,10 +171,10 @@ List<ClienteRecord> clientes = response.getBody().getRegistros(ClienteRecord.cla
 
 clientes.forEach(c -> {
         System.out.println();
-    System.out.println("CNPJ/CPF: " + c.getCnpjCpf());
+        System.out.println("CNPJ/CPF: " + c.getCnpjCpf());
         System.out.println("Razão social: " + c.getRazao());
         System.out.println("Endereço: " + c.getEndereco());
-        });
+});
 ````
 
 
