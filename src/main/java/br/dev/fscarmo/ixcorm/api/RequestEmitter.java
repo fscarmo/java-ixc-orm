@@ -121,17 +121,51 @@ public abstract class RequestEmitter {
     }
 
     /**
-     * @return Uma {@link String} com o endpoint para o qual as requsições serão enviadas.
+     * <p>
+     * Obtém a "tabela" definida no contrutor da classe.
+     * </p>
+     *
+     * @return Uma {@link String} com o endpoint para o qual as requisições serão enviadas.
      */
     protected String getTable() {
         return table;
     }
 
     /**
+     * <p>
+     * Define a query de busca que será enviada para a API do IXC Provedor.
+     * </p>
+     *
      * @param query Uma {@link String} JSON com o corpo da query no formato exigido pela API do IXC Provedor.
      */
     protected void setQuery(String query) {
         this.query = query;
+    }
+
+    /**
+     * <p>
+     * Envia a requisição para a API do IXC Provedor e retorna o coteúdo em um string.
+     * </p>
+     *
+     * @param method GET, POST, PUT, DELETE
+     * @return O conteúdo da resposta em String
+     * @throws NetworkConnectionException
+     */
+    protected HttpResponse<String> emitRequest(Method method) throws NetworkConnectionException {
+        try (HttpClient client = HttpClient.newHttpClient()) {
+
+            HttpRequest.Builder builder = HttpRequest.newBuilder(uri);
+            builder.method(method.value(), publisher);
+            headers.forEach(h -> builder.setHeader(h.getName(), h.getValue()));
+
+            return client.send(
+                    builder.build(),
+                    HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)
+            );
+        }
+        catch (IllegalArgumentException | UncheckedIOException | InterruptedException | IOException e) {
+            throw new NetworkConnectionException();
+        }
     }
 
     private void setupDefaultHeaders() {
@@ -174,22 +208,5 @@ public abstract class RequestEmitter {
         publisher = (isValidBody)
                 ? HttpRequest.BodyPublishers.ofString(body)
                 : HttpRequest.BodyPublishers.noBody();
-    }
-
-    private HttpResponse<String> emitRequest(Method method) throws NetworkConnectionException {
-        try (HttpClient client = HttpClient.newHttpClient()) {
-
-            HttpRequest.Builder builder = HttpRequest.newBuilder(uri);
-            builder.method(method.value(), publisher);
-            headers.forEach(h -> builder.setHeader(h.getName(), h.getValue()));
-
-            return client.send(
-                    builder.build(),
-                    HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)
-            );
-        }
-        catch (IllegalArgumentException | UncheckedIOException | InterruptedException | IOException e) {
-            throw new NetworkConnectionException();
-        }
     }
 }
