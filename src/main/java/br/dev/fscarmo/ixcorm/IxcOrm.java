@@ -5,9 +5,12 @@ import br.dev.fscarmo.ixcorm.api.RequestEmitter;
 import br.dev.fscarmo.ixcorm.api.Parameter;
 import br.dev.fscarmo.ixcorm.api.records.Ordering;
 import br.dev.fscarmo.ixcorm.api.records.Pagination;
+import br.dev.fscarmo.ixcorm.enums.Method;
 import br.dev.fscarmo.ixcorm.enums.Operator;
 import br.dev.fscarmo.ixcorm.enums.Sort;
+import br.dev.fscarmo.ixcorm.exception.NetworkConnectionException;
 
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,7 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 2.2.0
+ * @version 3.0.0
  * @since 2025-09-27
  */
 public abstract class IxcOrm extends RequestEmitter {
@@ -67,6 +70,23 @@ public abstract class IxcOrm extends RequestEmitter {
     }
 
     /**
+     * <p>
+     * Sobrescreve a chamada para <b>emitRequest(Method)</b> na superclasse {@link RequestEmitter} Envia a requisição
+     * para a API do IXC Provedor e retorna o coteúdo em um string empacotada em um {@link HttpResponse}.
+     * </p>
+     *
+     * @param method GET, POST, PUT, DELETE.
+     * @return O conteúdo da resposta em uma String empacotada em um {@link HttpResponse}.
+     */
+    @Override
+    protected HttpResponse<String> emitRequest(Method method) throws NetworkConnectionException {
+        var result = super.emitRequest(method);
+        parameters.clear();
+        setQuery("");
+        return result;
+    }
+
+    /**
      * Define a paginação na query de consulta.
      *
      * @param pagination Um objeto {@link Pagination} com as configurações de paginação.
@@ -102,7 +122,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm like(Object value) {
         parameterBuilder.operator(Operator.LIKE);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -119,7 +140,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm exactly(Object value) {
         parameterBuilder.operator(Operator.EQUALS);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -136,7 +158,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm not(Object value) {
         parameterBuilder.operator(Operator.NOT);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -153,7 +176,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm lessThan(Object value) {
         parameterBuilder.operator(Operator.LESS_THAN);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -170,7 +194,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm lessThanEquals(Object value) {
         parameterBuilder.operator(Operator.LESS_THAN_EQUALS);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -187,7 +212,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm greaterThan(Object value) {
         parameterBuilder.operator(Operator.GREATER_THAN);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -204,7 +230,8 @@ public abstract class IxcOrm extends RequestEmitter {
     public IxcOrm greaterThanEquals(Object value) {
         parameterBuilder.operator(Operator.GREATER_THAN_EQUALS);
         parameterBuilder.value(value);
-        addParamToGridAndReset();
+        parameters.add(parameterBuilder.build());
+        parameterBuilder = Parameter.newBuilder(getTable());
         setQuery(getQueryAsJson());
         return this;
     }
@@ -254,12 +281,6 @@ public abstract class IxcOrm extends RequestEmitter {
         String jsonQueryProps = getQueryPropsAsJson();
         String jsonGridParams = getGridParamsAsJson();
         return "{"+ jsonQueryProps +","+ jsonGridParams +"}";
-    }
-
-    private void addParamToGridAndReset() {
-        String table = getTable();
-        parameters.add(parameterBuilder.build());
-        parameterBuilder = Parameter.newBuilder(table);
     }
 
     private String getQueryPropsAsJson() {

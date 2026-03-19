@@ -27,7 +27,7 @@ Não precisa mais se preocupar com a construção das `queries` de busca, com a 
 <dependency>
     <groupId>br.dev.fscarmo</groupId>
     <artifactId>ixcorm</artifactId>
-    <version>1.2.0</version>
+    <version>2.0.0</version>
 </dependency>
 ````
 
@@ -117,7 +117,7 @@ package br.dev.fscarmo.ixcorm;
 
 public class Cliente extends IxcOrm {
 
-    public Cliente() {
+    protected Cliente() {
         super("cliente");
     }
 
@@ -163,8 +163,7 @@ import br.dev.fscarmo.ixcorm.IxcResponse;
 import java.util.List;
 
 IxcResponse response = Cliente.newCliente()
-        .where("data_cadastro")
-        .greaterThanEquals("2025-01-01")
+        .where("data_cadastro").greaterThanEquals("2025-01-01")
         .GET();
 
 List<ClienteRecord> clientes = response.getBody().getRegistros(ClienteRecord.class);

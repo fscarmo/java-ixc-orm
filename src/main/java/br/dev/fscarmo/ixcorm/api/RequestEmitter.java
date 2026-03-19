@@ -27,7 +27,7 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 2.0.1
+ * @version 2.0.2
  * @since 2025-09-27
  */
 public abstract class RequestEmitter {
@@ -144,12 +144,12 @@ public abstract class RequestEmitter {
 
     /**
      * <p>
-     * Envia a requisição para a API do IXC Provedor e retorna o coteúdo em um string.
+     * Envia a requisição para a API do IXC Provedor e retorna o coteúdo em um string empacotada em um
+     * {@link HttpResponse}.
      * </p>
      *
-     * @param method GET, POST, PUT, DELETE
-     * @return O conteúdo da resposta em String
-     * @throws NetworkConnectionException
+     * @param method GET, POST, PUT, DELETE.
+     * @return O conteúdo da resposta em uma String empacotada em um {@link HttpResponse}.
      */
     protected HttpResponse<String> emitRequest(Method method) throws NetworkConnectionException {
         try (HttpClient client = HttpClient.newHttpClient()) {

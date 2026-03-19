@@ -17,7 +17,7 @@ import java.util.List;
  * </p>
  *
  * @author Felipe S. Carmo
- * @version 1.0.1
+ * @version 1.1.0
  * @since 2025-09-28
  */
 public class IxcResponseBody {
@@ -66,20 +66,6 @@ public class IxcResponseBody {
      */
     public int getTotal() {
         return total;
-    }
-
-    /**
-     * <p>
-     * @deprecated Este recurso fois substuído por {@link #getRecords(Class)}. Será removido na versão 2.x.x desta
-     * biblioteca.
-     * </p>
-     *
-     * @param mapper A classe de um tipo genérico que herde de {@link IxcRecord}.
-     * @return Uma lista de objetos do tipo "<b>T</b>".
-     */
-    @Deprecated
-    public <T extends IxcRecord> List<T> getRegistros(Class<T> mapper) {
-        return this.getRecords(mapper);
     }
 
     /**
