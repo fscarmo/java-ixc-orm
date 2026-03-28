@@ -166,7 +166,7 @@ IxcResponse response = Cliente.newCliente()
         .where("data_cadastro").greaterThanEquals("2025-01-01")
         .GET();
 
-List<ClienteRecord> clientes = response.getBody().getRegistros(ClienteRecord.class);
+List<ClienteRecord> clientes = response.getBody().getRecords(ClienteRecord.class);
 
 clientes.forEach(c -> {
         System.out.println();
